@@ -78,6 +78,12 @@ defmodule ShortsyWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    get "/links", LinkController, :index
+    get "/links/create", LinkController, :new
+    post "/links/create", LinkController, :create
+    get "/links/:id", LinkController, :redirect_to
+    get "/links/:id/show", LinkController, :show
   end
 
   scope "/", ShortsyWeb do
