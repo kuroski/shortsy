@@ -81,6 +81,19 @@ defmodule Shortsy.Accounts do
   end
 
   @doc """
+  Fetch or create user
+  """
+  def fetch_or_create_user(attrs) do
+    case get_user_by_email(attrs.email) do
+      %User{} = user ->
+        {:ok, user}
+
+      _ ->
+        register_user(attrs)
+    end
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 
   ## Examples

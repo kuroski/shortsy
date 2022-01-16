@@ -4,6 +4,8 @@ defmodule ShortsyWeb.Router do
   import ShortsyWeb.UserAuth
 
   pipeline :browser do
+    plug Ueberauth
+
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
@@ -94,5 +96,8 @@ defmodule ShortsyWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+
+    get "/auth/:provider", UserOauthController, :request
+    get "/auth/:provider/callback", UserOauthController, :callback
   end
 end
