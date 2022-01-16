@@ -5,6 +5,10 @@
     </div>
   <% end %>
 
+  <%= label f, :url %>
+  <%= text_input f, :url, required: true %>
+  <%= error_tag f, :url %>
+
   <div>
     <%= submit "Save" %>
   </div>

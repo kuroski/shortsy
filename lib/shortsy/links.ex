@@ -50,9 +50,17 @@ defmodule Shortsy.Links do
 
   """
   def create_link(attrs \\ %{}) do
-    %Link{}
-    |> Link.changeset(attrs)
-    |> Repo.insert()
+    key = random_string(8)
+    attrs = Map.put(attrs, "id", key)
+
+    try do
+      %Link{}
+      |> Link.changeset(attrs)
+      |> Repo.insert()
+    rescue
+      Ecto.ConstraintError ->
+        create_link(attrs)
+    end
   end
 
   @doc """
@@ -100,5 +108,11 @@ defmodule Shortsy.Links do
   """
   def change_link(%Link{} = link, attrs \\ %{}) do
     Link.changeset(link, attrs)
+  end
+
+  defp random_string(string_length) do
+    :crypto.strong_rand_bytes(string_length)
+    |> Base.url_encode64()
+    |> binary_part(0, string_length)
   end
 end

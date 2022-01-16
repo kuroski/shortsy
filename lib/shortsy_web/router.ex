@@ -86,6 +86,7 @@ defmodule ShortsyWeb.Router do
     post "/links/create", LinkController, :create
     get "/links/:id", LinkController, :redirect_to
     get "/links/:id/show", LinkController, :show
+    delete "/links/:id", LinkController, :delete
   end
 
   scope "/", ShortsyWeb do
